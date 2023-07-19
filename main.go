@@ -4,9 +4,17 @@ import (
 	"context"
 	"fmt"
 	"log"
+        "github.com/gin-gonic/gin"
 	"net/http"
 )
 
+func getPoints(c *gin.Context) {
+  points := []Point{
+    Point{5,3},
+    Point{3,6},
+  }
+  c.IndentedJSON(http.StatusOK, points)
+}
 
 func getData(w http.ResponseWriter, r *http.Request) {
 	hiTemplate("rob").Render(context.Background(), w)
