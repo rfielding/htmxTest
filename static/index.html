@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>HTMX Example</title>
+  <script src="unpkg.com/htmx.org@1.3.3"></script>
+</head>
+<body>
+  <h1>HTMX Example</h1>
+  
+  <button hx-get="/data" hx-target="#result">Fetch Data</button>
+  
+  <div id="result"></div>
+  
+  <script>
+    document.addEventListener('htmx:load', function(event) {
+      console.log('htmx:load', event.detail);
+    });
+  </script>
+</body>
+</html>
