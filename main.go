@@ -3,21 +3,13 @@ package main
 import (
 	"context"
 	"fmt"
-	"github.com/a-h/templ"
-	"io"
 	"log"
 	"net/http"
 )
 
-func getHtml(name string) templ.Component {
-	return templ.ComponentFunc(func(ctx context.Context, w io.Writer) (err error) {
-		io.WriteString(w, fmt.Sprintf("<i>hello %s</i>", name))
-		return nil
-	})
-}
 
 func getData(w http.ResponseWriter, r *http.Request) {
-	getHtml("rob").Render(context.Background(), w)
+	hiTemplate("rob").Render(context.Background(), w)
 }
 
 func main() {

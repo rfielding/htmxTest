@@ -1,0 +1,4 @@
+#!/bin/bash
+
+templ generate hi.templ
+go run main.go hi_templ.go
