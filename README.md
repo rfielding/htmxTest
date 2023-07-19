@@ -18,3 +18,9 @@ go install github.com/a-h/templ/cmd/templ@latest
 Download dependencies, compile the code, and run it
 
 `./build`
+
+Check it
+
+http://localhost:3333/static
+
+And that does a trivial htmx app
