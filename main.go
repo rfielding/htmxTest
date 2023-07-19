@@ -1,39 +1,37 @@
 package main
 
 import (
-  "net/http"
-  "fmt"
-  "log"
-  "io"
-  "os"
-  "context"
-  "github.com/a-h/templ"
+	"context"
+	"fmt"
+	"github.com/a-h/templ"
+	"io"
+	"log"
+	"net/http"
 )
 
-
 func getHtml(name string) templ.Component {
-  return templ.ComponentFunc(func(ctx context.Context, w io.Writer) (err error) {
-    io.WriteString(w, fmt.Sprintf("<i>hello %s</i>", name))
-    return nil
-  }
+	return templ.ComponentFunc(func(ctx context.Context, w io.Writer) (err error) {
+		io.WriteString(w, fmt.Sprintf("<i>hello %s</i>", name))
+		return nil
+	})
 }
 
 func getData(w http.ResponseWriter, r *http.Request) {
-  getHtml("rob").Render(context.Background(),os.Stdout)
+	getHtml("rob").Render(context.Background(), w)
 }
 
 func main() {
-  listenerMask := "0.0.0.0:3333"
-  fs := http.FileServer(http.Dir("./static"))
+	listenerMask := "0.0.0.0:3333"
+	fs := http.FileServer(http.Dir("./static"))
 
-  http.Handle("/static/",http.StripPrefix("/static/",fs))
-  http.HandleFunc("/data",getData)
+	http.Handle("/static/", http.StripPrefix("/static/", fs))
+	http.HandleFunc("/data", getData)
 
-  log.Printf("Start web server on %s", listenerMask)
-  panic(
-    fmt.Sprintf(
-      "http server crashed: %v", 
-      http.ListenAndServe(listenerMask,nil),
-    ),
-  )
+	log.Printf("Start web server on %s", listenerMask)
+	panic(
+		fmt.Sprintf(
+			"http server crashed: %v",
+			http.ListenAndServe(listenerMask, nil),
+		),
+	)
 }
